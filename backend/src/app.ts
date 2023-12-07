@@ -3,6 +3,7 @@ import express from 'express'
 import logger from './config/pino-pretty'
 import cors from 'cors'
 import databaseConnect from './config/mongoConnection'
+import router from './routes'
 
 dotenv.config()
 
@@ -18,6 +19,8 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 app.use(express.static('public'))
+
+app.use('/chat', router)
 
 app.listen(PORT, () => {
   logger.info(`Running on port ${PORT}`)

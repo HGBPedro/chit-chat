@@ -8,9 +8,9 @@ export interface IMessage {
 }
 
 export interface IConversation {
-  _id: mongoose.ObjectId
+  _id?: mongoose.ObjectId
   code: string
-  messages: Types.DocumentArray<IMessage>
-  createdAt: Date
-  updatedAt: Date
+  messages: Types.DocumentArray<IMessage> | []
+  createdAt?: Date
+  updatedAt?: Date
 }

@@ -9,3 +9,7 @@ const conversationSchema = new Schema<IConversation>({
     media: { type: String, required: false }
   }]
 })
+
+const Conversation = mongoose.model<IConversation>('Conversations', conversationSchema)
+
+export default Conversation
