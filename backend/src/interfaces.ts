@@ -1,10 +1,11 @@
 import mongoose, { Types } from "mongoose";
 
 export interface IMessage {
-  _id: mongoose.ObjectId
+  _id?: mongoose.ObjectId
   sender: string
   text: string
   media?: string
+  date: string
 }
 
 export interface IConversation {
