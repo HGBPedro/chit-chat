@@ -76,6 +76,24 @@ async function sendMessage (req: Request, res: Response) {
   }
 }
 
-async function fetchMessages (req: Request, res: Response) {}
+async function fetchMessages (req: Request, res: Response) {
+  try {
+    const PAGE_SIZE = 50
+    const { code, page } = req.params
+    const pageNumber = Number(page) ?? 1
+    
+    if (!code) throw new Error('Não foi possível obter o código da conversa')
+
+    const conversation = await ConversationModel.findOne({ code }).slice('messages',  PAGE_SIZE).select('messages').exec()
+
+    if (!conversation) throw new Error('Não foi possível encontrar a conversa solicitada')
+
+    return res.status(200).send({ conversation })
+
+  } catch (error) {
+    logger.error(error)
+    return res.status(400).send({ error })
+  }
+}
 
 export default { createConversation, fetchConversation, sendMessage, fetchMessages }
