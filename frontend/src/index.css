@@ -1,0 +1,35 @@
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('/src/assets/fonts/IBM_Plex_Mono/IBMPlexMono-Regular.ttf')
+  url('/src/assets/fonts/IBM_Plex_Mono/IBMPlexMono-Bold.ttf'),
+  url('/src/assets/fonts/IBM_Plex_Mono/IBMPlexMono-BoldItalic.ttf'),
+  url('/src/assets/fonts/IBM_Plex_Mono/IBMPlexMono-ExtraLight.ttf'),
+  url('/src/assets/fonts/IBM_Plex_Mono/IBMPlexMono-ExtraLightItalic.ttf'),
+  url('/src/assets/fonts/IBM_Plex_Mono/IBMPlexMono-Italic.ttf'),
+  url('/src/assets/fonts/IBM_Plex_Mono/IBMPlexMono-Light.ttf'),
+  url('/src/assets/fonts/IBM_Plex_Mono/IBMPlexMono-LightItalic.ttf'),
+  url('/src/assets/fonts/IBM_Plex_Mono/IBMPlexMono-Medium.ttf'),
+  url('/src/assets/fonts/IBM_Plex_Mono/IBMPlexMono-MediumItalic.ttf'),
+  url('/src/assets/fonts/IBM_Plex_Mono/IBMPlexMono-SemiBold.ttf'),
+  url('/src/assets/fonts/IBM_Plex_Mono/IBMPlexMono-SemiboldItalic.ttf'),
+  url('/src/assets/fonts/IBM_Plex_Mono/IBMPlexMono-Thin.ttf'),
+  url('/src/assets/fonts/IBM_Plex_Mono/IBMPlexMono-ThinItalic.ttf');
+}
+
+:root {
+  --amber: #FFB000;
+  --light-amber: #FFCC00; 
+  --dark-gray: #0C0C0C;
+}
+
+body {
+  background: var(--dark-gray);
+  border: 3px solid var(--amber);
+  border-radius: 20px;
+  box-sizing: border-box;
+  color: var(--amber);
+  font-family: 'IBM Plex Mono Regular', monospace;
+  height: auto;
+  margin: 3rem;
+  padding: 0.75rem;
+}
