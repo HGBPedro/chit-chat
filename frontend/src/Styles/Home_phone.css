@@ -1,0 +1,59 @@
+@media screen and (max-width: 485px) {
+.home {
+  --total-margin: calc(var(--margin-size) * 2);
+  --total-border: calc(var(--border-width) * 2);
+
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  height: calc(var(--page-height) - var(--total-margin) - var(--total-border));
+  justify-content: center;
+
+  .home__title {
+    font-size: 40px;
+    margin-bottom: 0.5rem;
+    font-weight: bold
+  }
+
+  .home__button, .home__subtitle {
+    font-size: 22px;
+  }
+
+  .home__button {
+    background: transparent;
+    border: 3px solid var(--amber);
+    color: var(--amber);
+    font-weight: bold;
+    padding: 1.25rem 1rem;
+    width: 100%;
+  }
+
+  .home__button:hover, .home__button:focus {
+    background: var(--amber);
+    color: var(--dark-gray);
+    cursor: pointer;
+    outline: none;
+  }
+
+  .home__button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .home__subtitle{
+    overflow: hidden;
+    border-right: none;
+    margin: 0 auto;
+    letter-spacing: .05em;
+    animation: none;
+    max-width: 12rem;
+    word-break: break-word;
+    line-break: auto;
+    white-space: normal;
+    text-align: center;
+  }
+
+}
+}
