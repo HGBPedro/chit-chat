@@ -1,7 +1,4 @@
 .home {
-  --total-margin: calc(var(--margin-size) * 2);
-  --total-border: calc(var(--border-width) * 2);
-
   align-items: center;
   display: flex;
   flex-direction: column;

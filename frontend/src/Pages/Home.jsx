@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
+  const navigate = useNavigate()
+
   useEffect(() => {
     let cursorTimeout;
 
@@ -31,13 +34,21 @@ function Home() {
     }
   }, [])
 
+  const handleRedirect = (mode) => {
+    return navigate('/chat/join', { state: { mode } })
+  }
+
   return (
     <main className='home'>
       <h1 className='home__title'>Chit-Chat</h1>
       <h4 className='home__subtitle'>Talk about anything. Anonymously.</h4>
       <div className='home__button-container'>
-        <button className='home__button' id='join'>Join chat</button>
-        <button className='home__button' id='create'>Create chat</button>
+        <button className='home__button' id='join' onClick={() => handleRedirect('find')}>
+          Join chat
+        </button>
+        <button className='home__button' id='create' onClick={() => handleRedirect('join')}>
+          Create chat
+        </button>
       </div>
     </main>
   )

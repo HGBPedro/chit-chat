@@ -1,0 +1,57 @@
+.chat-halfway {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  height: calc(var(--page-height) - var(--total-margin) - var(--total-border));
+  justify-content: center;
+  text-align: left;
+}
+
+.container {
+  max-width: 350px;
+}
+
+.proceed-button {
+  background: transparent;
+  border: var(--border-width) solid var(--amber);
+  color: var(--amber);
+  font-size: 20px;
+  font-weight: bold;
+  height: 2rem;
+  padding: 0 0.8rem;
+}
+
+.prefix {
+  color: var(--amber);
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.input {
+  background: transparent;
+  border: 0;
+  caret-color: var(--amber);
+  caret-shape: var(--amber);
+  color: var(--amber);
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.input:focus, .proceed-button:focus {
+  border: none;
+  outline: none;
+}
+
+.proceed-button:focus, .proceed-button:hover {
+  background: var(--amber);
+  color: var(--dark-gray);
+  cursor: pointer;
+}
+
+.input-container {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
