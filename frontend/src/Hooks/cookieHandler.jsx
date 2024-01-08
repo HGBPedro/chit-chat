@@ -1,16 +1,22 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useEffect } from 'react'
 
 function cookieHandler() {
   const [cookies, setCookies] = useState(document.cookie)
+  const [refreshCookies, setRefreshCookies] = useState(false)
 
-  useMemo(() => {
+  useEffect(() => {
     setCookies(document.cookie)
-    console.log(cookies)
-  }, [document.cookie])
+  }, [refreshCookies])
 
-  const addCookie = (name, value) => document.cookie = `${name}=${value};max-age=${60*60*24*30};path='/';secure`
+  const addCookie = (name, value) => {
+    document.cookie = `${name}=${value};max-age=${60*60*24*30};path='/';secure`
+    return setRefreshCookies(prev => !prev)
+  }
 
-  const deleteCookie = (name) => document.cookie = `${name}=value;max-age=0`
+  const deleteCookie = (name) => {
+    document.cookie = `${name}=value;max-age=0`
+    return setRefreshCookies(prev => !prev)
+  }
 
   const fetchCookie = (name) => {
     const cookies = document.cookie
@@ -23,7 +29,7 @@ function cookieHandler() {
   }
 
   const cookiesToJSON = () => {
-    cookies = document.cookie.split('; ')
+    cookiesList = document.cookie.split('; ')
     const json = {}
 
     cookies.map(item => Object.assign(json, item))
