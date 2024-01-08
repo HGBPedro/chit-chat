@@ -1,0 +1,7 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  height: calc(var(--page-height) - var(--total-margin) - var(--total-border));
+  padding: 10px;
+}
