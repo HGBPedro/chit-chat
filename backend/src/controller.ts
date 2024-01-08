@@ -1,10 +1,8 @@
 import { Request, Response } from 'express'
-import fs from 'fs'
 import crypto from 'crypto'
 import ConversationModel from './schemas'
-import { IConversation, IMessage } from './interfaces'
+import { IConversation } from './interfaces'
 import logger from './config/pino-pretty'
-import { ObjectId } from 'mongoose'
 
 function hashName (input: string) {
   const hash = crypto.createHash('sha256').update(input).digest('hex')
@@ -30,10 +28,10 @@ async function createConversation (req: Request, res: Response) {
   }
 }
 
-async function fetchConversation (req: Request, res: Response) {
+async function fetchConversation (req: Request, res: Response, next: Function) {
   try {
     const { code } = req.params
-    
+
     if (!code) throw new Error('Não foi possível obter o código da conversa')
 
     const conversation = await ConversationModel.findOne({ code }).exec()
@@ -42,8 +40,7 @@ async function fetchConversation (req: Request, res: Response) {
 
     return res.status(200).send({ conversation })
   } catch (error) {
-    logger.error(error)
-    return res.status(400).send({ error })
+    return next(error)
   }
 }
 

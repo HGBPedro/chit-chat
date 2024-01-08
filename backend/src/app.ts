@@ -4,6 +4,7 @@ import logger from './config/pino-pretty'
 import cors from 'cors'
 import databaseConnect from './config/mongoConnection'
 import router from './routes'
+import { errorHandler } from './middlewares/errorMiddleware'
 
 dotenv.config()
 
@@ -21,6 +22,8 @@ app.use(express.json())
 app.use(express.static('public'))
 
 app.use('/chat', router)
+
+app.use(errorHandler)
 
 app.listen(PORT, () => {
   logger.info(`Running on port ${PORT}`)
