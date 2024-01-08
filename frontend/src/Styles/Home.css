@@ -1,11 +1,4 @@
 .home {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  height: calc(var(--page-height) - var(--total-margin) - var(--total-border));
-  justify-content: center;
-
   .home__title {
     font-size: 40px;
     margin-bottom: 0.5rem;

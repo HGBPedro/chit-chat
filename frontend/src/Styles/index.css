@@ -2,6 +2,9 @@
 @import url('./Home.css');
 @import url('./FindChat.css');
 @import url('./ErrorMessage.css');
+@import url('./LoadingBar.css');
+@import url('./Layout.css');
+@import url('./Input.css');
 
 @font-face {
   font-family: 'IBM Plex Mono';
@@ -51,4 +54,12 @@ body {
   filter: saturate(65%);
   margin: var(--margin-size);
   max-height: var(--page-height);
+
+  p {
+    margin: 0;
+  }
+}
+
+.flex {
+  display: flex;
 }

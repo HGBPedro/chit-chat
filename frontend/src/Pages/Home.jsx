@@ -1,56 +1,48 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import Layout from '../Components/Layout';
+import cookieHandler from '../Hooks/cookieHandler';
+import { HOME_TEXTS } from '../constants';
+import LinePrefix from '../Components/LinePrefix';
+import Input from '../Components/Input';
 
 function Home() {
   const navigate = useNavigate()
+  const { fetchCookie } = cookieHandler()
+  const { title, subtitle, description } = HOME_TEXTS
+  const [lines, setLines] = useState([title, subtitle, description])
+  const [nickname, setNickname] = useState('UNSET_USERNAME')
 
   useEffect(() => {
-    let cursorTimeout;
+    const nicknameCookie = fetchCookie('nickname') 
 
-    const buttons = document.getElementsByClassName('home__button');
-    if (buttons.length > 0) {
-      buttons[0].focus();
-    }
-
-    document.addEventListener('mousemove', function () {
-      document.body.style.cursor = 'auto';
-
-      cursorTimeout = setTimeout(() => document.body.style.cursor = 'none', 4000);
-    })
-
-    document.addEventListener('keydown', function (event) {
-      switch (event.key) {
-        case 'h':
-        case 'ArrowLeft':
-          return document.getElementById('join').focus();
-        case 'l':
-        case 'ArrowRight':
-          return document.getElementById('create').focus();
-      }
-    })
-
-    return () => {
-      clearTimeout(cursorTimeout);
-    }
+    if (nicknameCookie) setNickname(nicknameCookie)
   }, [])
 
   const handleRedirect = (mode) => {
     return navigate('/chat/join', { state: { mode } })
   }
 
+  const handleIinputValue = (value) => {
+    const commands = value.split(' ')
+
+
+  }
+
   return (
-    <main className='home'>
-      <h1 className='home__title'>Chit-Chat</h1>
-      <h4 className='home__subtitle'>Talk about anything. Anonymously.</h4>
-      <div className='home__button-container'>
-        <button className='home__button' id='join' onClick={() => handleRedirect('find')}>
-          Join chat
-        </button>
-        <button className='home__button' id='create' onClick={() => handleRedirect('join')}>
-          Create chat
-        </button>
-      </div>
-    </main>
+    <Layout>
+      {lines.map((item, idx) => {
+        return (
+          <p className='flex' key={`root-line-${idx}`}>
+            <LinePrefix text='ROOT' />{item}
+          </p>
+        )
+      })}
+      <p className='flex'>
+        <LinePrefix text={nickname} />
+        <Input callback={handleIinputValue}/>
+      </p>
+    </Layout>
   )
 }
 
