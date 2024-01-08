@@ -1,7 +1,7 @@
 import React from 'react'
 import cookieHandler from '../Hooks/cookieHandler'
 
-function NicknameConfig() {
+function NicknameConfig(callback) {
   const inputRef = React.useRef('')
   const { addCookie } = cookieHandler()
 
@@ -10,7 +10,8 @@ function NicknameConfig() {
   }
 
   const handleNickname = () => {
-    return addCookie('nickname', inputRef.current)
+    addCookie('nickname', inputRef.current)
+    if (callback) callback()
   }
 
   return (
