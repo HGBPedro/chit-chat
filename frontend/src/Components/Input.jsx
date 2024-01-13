@@ -3,13 +3,16 @@ import React from 'react'
 function Input({ callback }) {
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
-      if (callback) callback(e.target.value)
+      if (callback) {
+        callback(e.target.value)
+        document.getElementById('input-terminal').value = ''
+      }
     }
     return
   }
 
   return (
-    <input className='input' onKeyDown={handleKeyPress} />
+    <input id='input-terminal' className='input' onKeyDown={handleKeyPress} />
   )
 }
 
