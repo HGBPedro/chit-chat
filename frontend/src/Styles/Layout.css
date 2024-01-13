@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: 5px;
-  height: calc(var(--page-height) - var(--total-margin) - var(--total-border));
+  max-height: calc(var(--page-height) - var(--total-margin) - var(--total-border) - 20px);
   padding: 10px;
+  overflow: auto;
 }
