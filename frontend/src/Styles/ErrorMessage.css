@@ -1,6 +1,4 @@
 .error-message {
-  margin-bottom: 10px;
-
   .error-message__type {
     color: red;
     text-transform: uppercase;
