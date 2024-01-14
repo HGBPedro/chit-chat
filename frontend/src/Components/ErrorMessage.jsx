@@ -1,10 +1,11 @@
 import React from 'react'
 
-function ErrorMessage(err) {
+function ErrorMessage({ err }) {
   const { error } = err
+  console.log(err.error)
+  if (!error) return null
   return (
     <p className='error-message'>
-      &gt;
       <span className='error-message__type'>
         {` [${error.name}] `}
       </span>
