@@ -1,6 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom'
 import Home from '../Pages/Home'
-import ChatHalfway from '../Pages/ChatHalfway'
 
 const router = createBrowserRouter([
   {
@@ -8,8 +7,8 @@ const router = createBrowserRouter([
     element: <Home />
   },
   {
-    path: '/chat/join',
-    element: <ChatHalfway />
+    path: '/chat/:chatCode',
+    element: <></>
   }
 ])
 
