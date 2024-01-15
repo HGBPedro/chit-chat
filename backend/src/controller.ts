@@ -14,9 +14,14 @@ async function createConversation (req: Request, res: Response) {
     const { body } = req
 
     if (!body) throw new Error('Nome de usuário não enviado!')
+    
+    const code = hashName(body.name)
+
+    const oldConversation = await ConversationModel.findOne({ code }).exec()
+    if (oldConversation)  return res.status(201).send({ conversation: oldConversation })
 
     const obj: IConversation = {
-      code: hashName(body.name),
+      code,
       messages: []
     }
 
