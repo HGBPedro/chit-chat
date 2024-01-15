@@ -18,7 +18,7 @@ async function createConversation (req: Request, res: Response) {
     const code = hashName(body.name)
 
     const oldConversation = await ConversationModel.findOne({ code }).exec()
-    if (oldConversation)  return res.status(201).send({ conversation: oldConversation })
+    if (oldConversation)  return res.status(200).send({ conversation: oldConversation })
 
     const obj: IConversation = {
       code,
