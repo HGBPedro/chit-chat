@@ -1,4 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom'
+import Chat from '../Pages/Chat'
 import Home from '../Pages/Home'
 
 const router = createBrowserRouter([
@@ -8,7 +9,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/chat/:chatCode',
-    element: <></>
+    element: <Chat />
   }
 ])
 
