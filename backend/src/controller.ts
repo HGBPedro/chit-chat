@@ -9,11 +9,11 @@ function hashName (input: string) {
   return hash.slice(0, 10)
 }
 
-async function createConversation (req: Request, res: Response) {
+async function createConversation (req: Request, res: Response, next: Function) {
   try {
     const { body } = req
 
-    if (!body) throw new Error('Nome de usuário não enviado!')
+    if (!body || !body?.name) throw new Error('Nickname not sent!')
     
     const code = hashName(body.name)
 
@@ -28,8 +28,7 @@ async function createConversation (req: Request, res: Response) {
     const conversation = await ConversationModel.create(obj)
     return res.status(201).send({ conversation })
   } catch (error) {
-    logger.error(error)
-    return res.status(400).send({ error })
+    return next(error)
   }
 }
 
@@ -41,7 +40,7 @@ async function fetchConversation (req: Request, res: Response, next: Function) {
 
     const conversation = await ConversationModel.findOne({ code }).exec()
 
-    if (!conversation) throw new Error('Não foi possível encontrar a conversa solicitada')
+    if (!conversation) throw new Error('Chat not found!')
 
     return res.status(200).send({ conversation })
   } catch (error) {
