@@ -10,7 +10,6 @@ import { api } from '../config/api';
 
 function Home() {
   const navigate = useNavigate()
-  const inputRef = React.useRef()
   const { fetchCookie, addCookie } = cookieHandler()
   const { title, subtitle, description } = HOME_TEXTS
   const [lines, setLines] = useState([title, subtitle, description])
@@ -23,10 +22,6 @@ function Home() {
     if (nicknameCookie) setNickname(nicknameCookie)
     document.getElementById('input-terminal')?.focus()
   }, [])
-
-  const handleRedirect = (mode) => {
-    return navigate('/chat/join', { state: { mode } })
-  }
 
   const handleError = (message) => {
     const error = { name: 'ERROR', message }
@@ -47,7 +42,7 @@ function Home() {
     } catch (err) {
       if (!abortController.signal.aborted) {
         const { error } = err?.response.data
-        handleError(error)
+        handleError(error.message)
         setIsLoading(false)
       }
     }
@@ -59,9 +54,11 @@ function Home() {
       const { conversation } = response.data
       if (!conversation) throw { response: { data: { error: { name: 'Error', message: 'Não foi possível encontrar a conversa solicitada' } } } }
       document.cookie = `messages=${JSON.stringify(conversation.messages)};`
+      return navigate(`/chat/${code}`, { state: { messages: conversation.messages } })
     } catch (err) {
       if (!abortController.signal.aborted) {
-        const { error } = err.response.data
+        const { error } = err?.response.data
+        handleError(error.message)
         setIsLoading(false)
       }
     }
@@ -82,12 +79,13 @@ function Home() {
     switch (commandName) {
       case 'join-chat':
         if (commands[2]) {
+          if (commands[2] !== '-nickname') return handleError('Invalid argument. Use help to see available options')
           handleSetNickname(commands[3])
         }
         return handleChatJoin(commands[1])
       case 'create-chat':
         if (commands[1]) {
-          //return handleError('Invalid argument. Use help to see available options')
+          if (commands[1] !== '-nickname') return handleError('Invalid argument. Use help to see available options')
           handleSetNickname(commands[2])
         }
         return handleChatCreate()

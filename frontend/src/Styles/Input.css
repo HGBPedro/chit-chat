@@ -1,6 +1,12 @@
 .input {
   background: transparent;
+  border: 0;
   color: var(--amber);
+  font-size: 16px;
   font-weight: normal;
   width: 100%;
+}
+
+.input:focus {
+  outline: none;
 }
