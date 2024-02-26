@@ -5,7 +5,6 @@ export interface IMessage {
   sender: string
   text: string
   media?: string
-  date: string
 }
 
 export interface IConversation {

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import crypto from 'crypto'
 import ConversationModel from './schemas'
-import { IConversation } from './interfaces'
+import { IConversation, IMessage } from './interfaces'
 import logger from './config/pino-pretty'
 
 function hashName (input: string) {
@@ -60,10 +60,9 @@ async function sendMessage (req: Request, res: Response) {
 
     if (!conversation) throw new Error('Não foi possível encontrar a conversa solicitada')
 
-    const message: any = {
+    const message: IMessage = {
       text: body.text as string,
-      sender: body.sender as string,
-      date: new Date().toString() as string
+      sender: body.sender as string
     }
 
     conversation.messages = [...conversation.messages, message] as any
