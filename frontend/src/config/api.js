@@ -6,6 +6,6 @@ const api = axios.create({
   timeout: 15000
 })
 
-const socket = io(import.meta.env.VITE_SOCKET_URL, { autoConnect: false })
+const socket = io(import.meta.env.VITE_SOCKET_URL, { autoConnect: false, withCredentials: true })
 
 export { api, socket }

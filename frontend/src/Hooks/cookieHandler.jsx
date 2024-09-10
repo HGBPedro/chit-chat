@@ -9,7 +9,8 @@ function cookieHandler() {
   }, [refreshCookies])
 
   const addCookie = (name, value) => {
-    document.cookie = `${name}=${value};max-age=${60*60*24*30};path='/';secure`
+    console.log({ name, value });
+    document.cookie = `${name}=${value};max-age=${60*60*24*30};path='/';`
     return setRefreshCookies(prev => !prev)
   }
 

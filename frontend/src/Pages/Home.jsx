@@ -52,7 +52,7 @@ function Home() {
     try {
       const response = await api.get(`/chat/${code}`, { signal: abortController.signal })
       const { conversation } = response.data
-      if (!conversation) throw { response: { data: { error: { name: 'Error', message: 'Não foi possível encontrar a conversa solicitada' } } } }
+      if (!conversation) throw { response: { data: { error: { name: 'Error', message: 'Chat not found' } } } }
       document.cookie = `messages=${JSON.stringify(conversation.messages)};`
       return navigate(`/chat/${code}`, { state: { messages: conversation.messages } })
     } catch (err) {
@@ -90,6 +90,7 @@ function Home() {
         }
         return handleChatCreate()
       case 'set-nickname':
+        console.log({ commands} )
         return handleSetNickname(commands[1])
       case 'clear':
         return setLines([])

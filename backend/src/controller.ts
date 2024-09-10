@@ -3,6 +3,7 @@ import crypto from 'crypto'
 import ConversationModel from './schemas'
 import { IConversation, IMessage } from './interfaces'
 import logger from './config/pino-pretty'
+import socket from './config/socket'
 
 function hashName (input: string) {
   const hash = crypto.createHash('sha256').update(input).digest('hex')
@@ -48,6 +49,24 @@ async function fetchConversation (req: Request, res: Response, next: Function) {
   }
 }
 
+async function socketMessage (code: string, message: IMessage) {
+  try {
+    if (!code) throw new Error('Não foi possível obter o código da conversa')
+
+    const conversation = await ConversationModel.findOne({ code }).exec()
+
+    if (!conversation) throw new Error('Não foi possível encontrar a conversa solicitada')
+
+    conversation.messages = [...conversation.messages, message] as any
+
+    await conversation.save()
+    socket.emit('message saved', message)
+    socket.emit('new message', message)
+  } catch (error) {
+    logger.error(error)
+  }
+}
+
 async function sendMessage (req: Request, res: Response) {
   try {
     const { body, params } = req
@@ -68,6 +87,7 @@ async function sendMessage (req: Request, res: Response) {
     conversation.messages = [...conversation.messages, message] as any
 
     await conversation.save()
+    socket.emit('new message', message)
 
     return res.status(201).send({ conversation })
   } catch (error) {
@@ -89,11 +109,10 @@ async function fetchMessages (req: Request, res: Response) {
     if (!conversation) throw new Error('Não foi possível encontrar a conversa solicitada')
 
     return res.status(200).send({ conversation })
-
   } catch (error) {
     logger.error(error)
     return res.status(400).send({ error })
   }
 }
 
-export default { createConversation, fetchConversation, sendMessage, fetchMessages }
+export default { createConversation, fetchConversation, sendMessage, fetchMessages, socketMessage }
